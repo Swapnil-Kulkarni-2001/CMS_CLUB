@@ -19,8 +19,9 @@
             android:layout_alignParentBottom="true"
             android:background="@color/white"
             app:itemIconSize="30dp"
-            app:itemIconTint="#f18600"
+            app:itemIconTint="@drawable/bottom_icon_color_selector"
             app:itemTextColor="@color/black"
+            app:labelVisibilityMode="unlabeled"
             app:menu="@menu/menu_items" />
     </RelativeLayout>
 
