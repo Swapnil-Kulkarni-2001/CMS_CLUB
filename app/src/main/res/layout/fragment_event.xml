@@ -7,38 +7,23 @@
     tools:context=".fragment_event">
 
 
-    <LinearLayout
-        android:layout_width="340dp"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_organize"
+        android:layout_width="match_parent"
         android:layout_height="70dp"
+        android:background="@drawable/round_button"
         android:layout_margin="20dp"
-        android:background="@drawable/round_button">
-
-        <TextView
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:text="Organize an Event"
-            android:textSize="30dp"
-            android:layout_marginLeft="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:layout_gravity="center"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_organize"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:background="@drawable/ic_next"
-            android:backgroundTint="@color/white"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-    </LinearLayout>
+        android:text="Organize an Event"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        tools:ignore="HardcodedText" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_event"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="80dp"
-        tools:listitem="@layout/event_row"/>
+        tools:listitem="@layout/event_row_new"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

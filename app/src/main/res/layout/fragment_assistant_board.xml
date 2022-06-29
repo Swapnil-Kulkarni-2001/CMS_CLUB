@@ -6,7 +6,7 @@
     android:orientation="vertical"
     tools:context=".fragment_assistant_board">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -15,10 +15,8 @@
             android:id="@+id/ed_search"
             android:layout_width="320dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:layout_margin="20dp"
             android:background="@drawable/custom_input"
             android:drawableStart="@drawable/custom_search_icon"
             android:drawablePadding="12dp"
@@ -34,18 +32,20 @@
             android:id="@+id/btn_assistant_add"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginTop="20dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
             android:background="@drawable/ic_add"
             tools:ignore="SpeakableTextPresentCheck" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:elevation="30dp"
-        tools:listitem="@layout/assistant_board_row"
+        tools:listitem="@layout/main_board_row"
         android:layout_marginBottom="55dp"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

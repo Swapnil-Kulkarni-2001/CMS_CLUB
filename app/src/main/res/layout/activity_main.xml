@@ -21,8 +21,10 @@
             app:itemIconSize="30dp"
             app:itemIconTint="@drawable/bottom_icon_color_selector"
             app:itemTextColor="@color/black"
-            app:labelVisibilityMode="unlabeled"
+            app:labelVisibilityMode="selected"
             app:menu="@menu/menu_items" />
+
+
     </RelativeLayout>
 
     <!--    D410F6-->

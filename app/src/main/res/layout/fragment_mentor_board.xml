@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".fragment_mentor_board">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -14,10 +14,12 @@
             android:id="@+id/ed_search"
             android:layout_width="320dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
-            android:layout_marginRight="10dp"
+            android:autofillHints=""
             android:background="@drawable/custom_input"
             android:drawableStart="@drawable/custom_search_icon"
             android:drawablePadding="12dp"
@@ -26,18 +28,19 @@
             android:inputType="textPersonName"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
-            android:textSize="20sp"
-            android:autofillHints=""  />
+            android:textSize="20sp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_mentor_add"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginTop="20dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
             android:background="@drawable/ic_add"
             tools:ignore="SpeakableTextPresentCheck" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"

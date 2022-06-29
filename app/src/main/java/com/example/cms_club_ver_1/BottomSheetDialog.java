@@ -20,7 +20,7 @@ public class BottomSheetDialog extends BottomSheetDialogFragment
     public AppCompatButton cancel;
 
     public int check;
-
+    public static String member_name = "Empty";
 
     public BottomSheetDialog(int check)
     {
@@ -41,6 +41,8 @@ public class BottomSheetDialog extends BottomSheetDialogFragment
             public void onClick(View view) {
                 Toast.makeText(getActivity(),"Saved",Toast.LENGTH_SHORT).show();
 
+                member_name = ed_name.getText().toString();
+                EditActivity.txt_name.setText(member_name);
                 switch (check)
                 {
                     case 1 :

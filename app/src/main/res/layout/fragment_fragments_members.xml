@@ -16,11 +16,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:tabTextColor="@android:color/darker_gray"
-        app:tabIndicatorColor="#f18600"
+        app:tabTextColor="#d9d9d9"
+        app:tabIndicatorColor="@color/white"
         app:tabIndicatorFullWidth="false"
         app:tabIndicatorHeight="4dp"
-        app:tabSelectedTextColor="@color/black">
+        android:background="@color/orange"
+        app:tabSelectedTextColor="#ffffff">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"

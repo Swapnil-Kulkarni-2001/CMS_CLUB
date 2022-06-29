@@ -35,13 +35,13 @@ public class fragment_assistant_board extends Fragment {
         btn_add_assistant_board = view.findViewById(R.id.btn_assistant_add);
         arrayList = new ArrayList<>();
 
-        arrayList.add(new MainBoardPOJO(R.drawable.ic_launcher_background,"Swapnil Kulkarni","Web Developer"));
-        arrayList.add(new MainBoardPOJO(R.drawable.ic_launcher_background,"Harshal Gawande","Treasurer"));
-        arrayList.add(new MainBoardPOJO(R.drawable.ic_launcher_background,"Swapnil Kulkarni","Web Developer"));
-        arrayList.add(new MainBoardPOJO(R.drawable.ic_launcher_background,"Swapnil Kulkarni","Web Developer"));
-        arrayList.add(new MainBoardPOJO(R.drawable.ic_launcher_background,"Swapnil Kulkarni","Web Developer"));
-        arrayList.add(new MainBoardPOJO(R.drawable.ic_launcher_background,"Swapnil Kulkarni","Web Developer"));
-        arrayList.add(new MainBoardPOJO(R.drawable.ic_launcher_background,"Swapnil Kulkarni","Web Developer"));
+        arrayList.add(new MainBoardPOJO(R.drawable.ic_launcher_background,"Swapnil Kulkarni","Web Developer","9403342835","https://www.instagram.com/swapnil_kulkarni_2001/","https://github.com/Swapnil-Kulkarni-2001","https://www.instagram.com/swapnil_kulkarni_2001/"));
+        arrayList.add(new MainBoardPOJO(R.drawable.ic_launcher_background,"Harshal Gawande","Treasurer","9403342835","https://www.instagram.com/swapnil_kulkarni_2001/","https://github.com/Swapnil-Kulkarni-2001","https://www.instagram.com/swapnil_kulkarni_2001/"));
+        arrayList.add(new MainBoardPOJO(R.drawable.ic_launcher_background,"Swapnil Kulkarni","Web Developer","9403342835","https://www.instagram.com/swapnil_kulkarni_2001/","https://github.com/Swapnil-Kulkarni-2001","https://www.instagram.com/swapnil_kulkarni_2001/"));
+        arrayList.add(new MainBoardPOJO(R.drawable.ic_launcher_background,"Swapnil Kulkarni","Web Developer","9403342835","https://www.instagram.com/swapnil_kulkarni_2001/","https://github.com/Swapnil-Kulkarni-2001","https://www.instagram.com/swapnil_kulkarni_2001/"));
+        arrayList.add(new MainBoardPOJO(R.drawable.ic_launcher_background,"Swapnil Kulkarni","Web Developer","9403342835","https://www.instagram.com/swapnil_kulkarni_2001/","https://github.com/Swapnil-Kulkarni-2001","https://www.instagram.com/swapnil_kulkarni_2001/"));
+        arrayList.add(new MainBoardPOJO(R.drawable.ic_launcher_background,"Swapnil Kulkarni","Web Developer","9403342835","https://www.instagram.com/swapnil_kulkarni_2001/","https://github.com/Swapnil-Kulkarni-2001","https://www.instagram.com/swapnil_kulkarni_2001/"));
+        arrayList.add(new MainBoardPOJO(R.drawable.ic_launcher_background,"Swapnil Kulkarni","Web Developer","9403342835","https://www.instagram.com/swapnil_kulkarni_2001/","https://github.com/Swapnil-Kulkarni-2001","https://www.instagram.com/swapnil_kulkarni_2001/"));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 

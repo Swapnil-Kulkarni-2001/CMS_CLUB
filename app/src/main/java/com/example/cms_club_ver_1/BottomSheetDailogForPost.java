@@ -20,6 +20,8 @@ public class BottomSheetDailogForPost extends BottomSheetDialogFragment
     public AppCompatButton cancel;
     public int check;
 
+    public static String member_post;
+
     public BottomSheetDailogForPost(int check)
     {
         this.check = check;
@@ -38,6 +40,8 @@ public class BottomSheetDailogForPost extends BottomSheetDialogFragment
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity(),"Saved",Toast.LENGTH_SHORT).show();
+                member_post = ed_name.getText().toString();
+                EditActivity.txt_post.setText(member_post);
 
                 switch (check)
                 {

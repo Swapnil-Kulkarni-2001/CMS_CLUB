@@ -30,7 +30,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.Holder>
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.event_row,parent,false);
+        View view = layoutInflater.inflate(R.layout.event_row_new,parent,false);
         return new EventAdapter.Holder(view);
     }
 
@@ -38,7 +38,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.Holder>
     public void onBindViewHolder(@NonNull Holder holder, @SuppressLint("RecyclerView") int position) {
         holder.textEventName.setText(arrayList.get(position).getEvent_name());
         holder.textDate.setText(arrayList.get(position).getDate());
-        holder.expandableDescription.setText(arrayList.get(position).getDiscription());
+        holder.expandableDescription.setText(arrayList.get(position).getDescription());
         holder.expandableDescription.setOnStateChangeListener(new OnStateChangeListener() {
             @Override
             public void onStateChange(boolean isShrink) {
@@ -47,8 +47,17 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.Holder>
                 arrayList.set(position,item);
             }
         });
-        holder.expandableDescription.setText(arrayList.get(position).getDiscription());
+        holder.expandableDescription.setText(arrayList.get(position).getDescription());
         holder.expandableDescription.resetState(arrayList.get(position).isShrink);
+        if(arrayList.get(position).getPoster() == null)
+        {
+            holder.poster.setVisibility(View.GONE);
+        }
+        else
+        {
+            holder.poster.setImageURI(arrayList.get(position).getPoster());
+        }
+
         holder.bind(arrayList.get(position),listener);
     }
 
@@ -61,12 +70,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.Holder>
     {
         TextView textEventName;
         TextView textDate;
+        ImageView poster;
         ExpandableTextView expandableDescription;
 
         public Holder(@NonNull View itemView) {
             super(itemView);
             textEventName = itemView.findViewById(R.id.eventName);
             textDate = itemView.findViewById(R.id.date);
+            poster = itemView.findViewById(R.id.poster);
             expandableDescription = itemView.findViewById(R.id.expandable_description);
         }
 

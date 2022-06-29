@@ -6,82 +6,208 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_pic"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="10dp"
-            android:src="@drawable/img_example"
-            app:civ_border_color="#0080ff"
-            app:civ_border_width="1dp" />
+        android:layout_height="45dp"
+        android:background="@color/orange">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_add_image"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignEnd="@+id/profile_pic"
-            android:layout_alignBottom="@+id/profile_pic"
-            android:background="@drawable/round_button"
-            android:drawableEnd="@drawable/ic_edit"
-            android:drawableTint="@color/white"
-            android:paddingEnd="9dp"
-            tools:ignore="RtlSymmetry,SpeakableTextPresentCheck" />
-    </RelativeLayout>
+            android:id="@+id/btn_member_add_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/ic_arrow_back"
+            android:backgroundTint="@color/white"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
-    <EditText
-        android:id="@+id/ed_new_member_name"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/custom_input"
-        android:drawablePadding="12dp"
-        android:ems="10"
-        android:hint="Member Name"
-        android:inputType="textPersonName"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:textSize="20sp"
-        android:autofillHints="" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="15dp"
+            android:fontFamily="sans-serif-light"
+            android:text="Add Member"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            tools:ignore="TextContrastCheck" />
 
-    <EditText
-        android:id="@+id/ed_new_member_psot"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/custom_input"
-        android:drawablePadding="12dp"
-        android:ems="10"
-        android:hint="Member Post"
-        android:inputType="textPersonName"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:textSize="20sp"
-        android:autofillHints="" />
+    </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_save"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/custom_button"
-        android:text="Save"
-        android:textColor="@color/white"
-        android:textSize="20sp"/>
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_pic"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/img_example"
+                    app:civ_border_width="1dp" />
+
+                <ImageButton
+                    android:id="@+id/btn_add_image"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignEnd="@+id/profile_pic"
+                    android:layout_alignBottom="@+id/profile_pic"
+                    android:background="@drawable/round_button"
+                    android:contentDescription="image"
+                    android:src="@drawable/ic_camera"
+                    tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/ed_new_member_name"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="50dp"
+                android:autofillHints=""
+                android:background="@drawable/custom_input"
+                android:drawableStart="@drawable/custom_user_icon"
+                android:drawablePadding="12dp"
+                android:ems="10"
+                android:hint="Member Name"
+                android:inputType="textPersonName"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textSize="20sp"
+                tools:ignore="TextContrastCheck" />
+
+            <EditText
+                android:id="@+id/ed_new_member_post"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="50dp"
+                android:autofillHints=""
+                android:background="@drawable/custom_input"
+                android:drawableStart="@drawable/custom_post_icon"
+                android:drawablePadding="12dp"
+                android:ems="10"
+                android:hint="Member Post"
+                android:inputType="textPersonName"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textSize="20sp"
+                tools:ignore="TextContrastCheck" />
+
+            <EditText
+                android:id="@+id/ed_new_phone_no_add"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="50dp"
+                android:autofillHints=""
+                android:background="@drawable/custom_input"
+                android:drawableStart="@drawable/custom_whatsapp_icon"
+                android:drawablePadding="12dp"
+                android:ems="10"
+                android:hint="WhatsApp no"
+                android:inputType="phone"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textSize="20sp"
+                tools:ignore="TextContrastCheck" />
+
+
+            <EditText
+                android:id="@+id/ed_new_linkedin_url"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="50dp"
+                android:autofillHints=""
+                android:background="@drawable/custom_input"
+                android:drawableStart="@drawable/custom_link_icon"
+                android:drawablePadding="12dp"
+                android:ems="10"
+                android:hint="LinkedIn Account"
+                android:inputType="textUri"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textSize="20sp"
+                tools:ignore="TextContrastCheck" />
+
+            <EditText
+                android:id="@+id/ed_new_github_url"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="50dp"
+                android:autofillHints=""
+                android:background="@drawable/custom_input"
+                android:drawableStart="@drawable/custom_link_icon"
+                android:drawablePadding="12dp"
+                android:ems="10"
+                android:hint="Github Account"
+                android:inputType="textUri"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textSize="20sp"
+                tools:ignore="TextContrastCheck" />
+
+            <EditText
+                android:id="@+id/ed_new_instagram_url"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="50dp"
+                android:autofillHints=""
+                android:background="@drawable/custom_input"
+                android:drawableStart="@drawable/custom_link_icon"
+                android:drawablePadding="12dp"
+                android:ems="10"
+                android:hint="Instagram Account"
+                android:inputType="textUri"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textSize="20sp"
+                tools:ignore="TextContrastCheck" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_save"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/custom_button"
+                android:text="Save"
+                android:textColor="@color/white"
+                android:textSize="20sp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

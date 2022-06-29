@@ -3,34 +3,77 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="LoginModule/src/main/res/drawable/login_gradiant.xml" value="0.18" />
+        <entry key="LoginModule/src/main/res/layout/activity_main.xml" value="0.35625" />
+        <entry key="LoginModule/src/main/res/layout/activity_student_login.xml" value="0.35625" />
         <entry key="app/src/main/res/drawable-v24/custom_button.xml" value="0.183" />
+        <entry key="app/src/main/res/drawable-v24/custom_id_icon.xml" value="0.158" />
+        <entry key="app/src/main/res/drawable-v24/custom_password_icon.xml" value="0.18" />
+        <entry key="app/src/main/res/drawable-v24/custom_textview_textcolor.xml" value="0.18" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1945" />
+        <entry key="app/src/main/res/drawable-v24/ic_password.xml" value="0.18" />
+        <entry key="app/src/main/res/drawable-v24/login_gradiant.xml" value="0.18" />
         <entry key="app/src/main/res/drawable/bottom_icon_color_selector.xml" value="0.2105" />
+        <entry key="app/src/main/res/drawable/custom_button.xml" value="0.1945" />
         <entry key="app/src/main/res/drawable/custom_input.xml" value="0.183" />
+        <entry key="app/src/main/res/drawable/custom_link_icon.xml" value="0.158" />
+        <entry key="app/src/main/res/drawable/custom_post_icon.xml" value="0.158" />
+        <entry key="app/src/main/res/drawable/custom_search_icon.xml" value="0.158" />
+        <entry key="app/src/main/res/drawable/custom_user_icon.xml" value="0.158" />
+        <entry key="app/src/main/res/drawable/custom_whatsapp_icon.xml" value="0.158" />
         <entry key="app/src/main/res/drawable/edit_box.xml" value="0.1915" />
         <entry key="app/src/main/res/drawable/empty_divider.xml" value="0.183" />
+        <entry key="app/src/main/res/drawable/gradiant_color.xml" value="0.158" />
         <entry key="app/src/main/res/drawable/ic_arrow.xml" value="0.1675" />
+        <entry key="app/src/main/res/drawable/ic_camera.xml" value="0.1945" />
+        <entry key="app/src/main/res/drawable/ic_cs.xml" value="0.18" />
         <entry key="app/src/main/res/drawable/ic_edit.xml" value="0.183" />
         <entry key="app/src/main/res/drawable/ic_event_edit_save.xml" value="0.1915" />
         <entry key="app/src/main/res/drawable/ic_events.xml" value="0.2105" />
+        <entry key="app/src/main/res/drawable/ic_ins.xml" value="0.158" />
+        <entry key="app/src/main/res/drawable/ic_link_focused.xml" value="0.158" />
+        <entry key="app/src/main/res/drawable/ic_link_unfocused.xml" value="0.158" />
+        <entry key="app/src/main/res/drawable/ic_logo.xml" value="0.18" />
+        <entry key="app/src/main/res/drawable/ic_post.xml" value="0.158" />
+        <entry key="app/src/main/res/drawable/ic_post_unfocused.xml" value="0.158" />
         <entry key="app/src/main/res/drawable/ic_user.xml" value="0.183" />
+        <entry key="app/src/main/res/drawable/ic_user_unfocused.xml" value="0.158" />
+        <entry key="app/src/main/res/drawable/ic_username.xml" value="0.18" />
+        <entry key="app/src/main/res/drawable/ic_whatsapp.xml" value="0.158" />
+        <entry key="app/src/main/res/drawable/ic_whatsapp_focused.xml" value="0.158" />
+        <entry key="app/src/main/res/drawable/orange_gradiant_color.xml" value="0.18" />
         <entry key="app/src/main/res/drawable/round_button.xml" value="0.183" />
         <entry key="app/src/main/res/layout-v23/activity_event_details.xml" value="0.18072916666666666" />
         <entry key="app/src/main/res/layout-v23/main_board_add_page.xml" value="0.18072916666666666" />
+        <entry key="app/src/main/res/layout/activity_club_login.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/activity_club_service_organize.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/activity_event_details.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/activity_event_organize.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3411458333333333" />
+        <entry key="app/src/main/res/layout/activity_student_login.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/assistant_board_row.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/bottom_sheet_dailog_for_poat.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/bottom_sheet_dialog.xml" value="0.35520833333333335" />
-        <entry key="app/src/main/res/layout/edit_activity_for_all_members.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/layout/bottom_sheet_dialog_github.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/layout/bottom_sheet_dialog_instagram.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/layout/bottom_sheet_dialog_linkedin.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/layout/bottom_sheet_dialog_phoneno.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/layout/club_service_row.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/layout/edit_activity_for_all_members.xml" value="0.3472222222222222" />
         <entry key="app/src/main/res/layout/edit_name_row.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/event_row.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/layout/event_row_new.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/fragment_assistant_board.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_event.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_fragments_members.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.35625" />
-        <entry key="app/src/main/res/layout/fragment_main_board.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_main_board.xml" value="0.3472222222222222" />
         <entry key="app/src/main/res/layout/fragment_mentor_board.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/fragment_more.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/fragment_service.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/image_gallery.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/layout/img_row.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/main_board_add_page.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/main_board_row.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/multiline_edittext_dialog_box.xml" value="0.35520833333333335" />

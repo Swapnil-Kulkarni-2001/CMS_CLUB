@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment_service">
+    android:orientation="vertical"
+    tools:context=".fragment_event">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Services"
-        android:textSize="30dp"
-        android:layout_centerInParent="true"/>
 
-</RelativeLayout>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_organize_club_service"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@drawable/round_button"
+        android:layout_margin="20dp"
+        android:text="Organize an Club Service"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        tools:ignore="HardcodedText" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_club_services"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="80dp"
+        tools:listitem="@layout/event_row_new"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

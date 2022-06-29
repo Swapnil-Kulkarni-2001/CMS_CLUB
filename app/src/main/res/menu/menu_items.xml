@@ -21,9 +21,9 @@
 
     <item
         android:id="@+id/services"
-        android:icon="@drawable/ic_service"
+        android:icon="@drawable/ic_cs"
         android:iconTint="#AAA8A8"
-        android:title="Services"/>
+        android:title="Club Services"/>
 
     <item
         android:id="@+id/more"
