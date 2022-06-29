@@ -1,13 +1,16 @@
 package com.example.cms_club_ver_1;
 
 import android.annotation.SuppressLint;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,6 +23,10 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.Objects;
 
@@ -50,10 +57,15 @@ public class ClubServiceActivity extends AppCompatActivity
 
     public ImageView img_cs_poster;
 
+    public int error_check;
+
     public String CSNAME;
     public String CSDATE;
     public String CSDESCRIPTION;
     public static Uri CSPOSTERURI;
+
+    public DatabaseReference databaseReference;
+    public StorageReference storageReference;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +97,10 @@ public class ClubServiceActivity extends AppCompatActivity
         textCSDescription = findViewById(R.id.txt_club_service_description);
 
         img_cs_poster = findViewById(R.id.img_club_service_poster);
+
+
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("SKCLUB").child(fragment_service.club_id).child("club_services");
+        storageReference = FirebaseStorage.getInstance().getReference().child(fragment_service.club_id).child("club_services");
 
 
         btn_cs_edit.setOnClickListener(view -> {
@@ -159,6 +175,50 @@ public class ClubServiceActivity extends AppCompatActivity
             //firebase code to store CS
             //store above data in firebase
 
+            int field_check = 0;
+            if(TextUtils.isEmpty(CSNAME))
+            {
+                field_check = 1;
+            }
+            if(TextUtils.isEmpty(CSDATE))
+            {
+                field_check = 1;
+            }
+            if(TextUtils.isEmpty(CSDESCRIPTION))
+            {
+                field_check = 1;
+            }
+            if(TextUtils.isEmpty(String.valueOf(CSPOSTERURI)))
+            {
+                field_check = 1;
+            }
+
+            if(field_check == 1)
+            {
+                Toast.makeText(getApplicationContext(), "Failed to create club service !", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            storageReference = storageReference.child(System.currentTimeMillis()+"."+getFileExtension(CSPOSTERURI));
+            storageReference.putFile(CSPOSTERURI).addOnSuccessListener(taskSnapshot -> storageReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                String key = databaseReference.push().getKey();
+                CSPOJO data = new CSPOJO();
+                data.setCms_id(key);
+                data.setCs_topic(CSNAME);
+                data.setCs_date(CSDATE);
+                data.setCs_description(CSDESCRIPTION);
+                data.setCs_poster(String.valueOf(uri));
+                assert key != null;
+                databaseReference.child(key).setValue(data).addOnSuccessListener(unused -> error_check = 0);
+            }));
+
+            if (error_check == 0)
+            {
+                Toast.makeText(getApplicationContext(), "Club service created successfully ! ", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+
+
         });
 
         back.setOnClickListener(view -> finish());
@@ -171,6 +231,11 @@ public class ClubServiceActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
 
         CSPOSTERURI= Objects.requireNonNull(data).getData();
+
+        if (CSPOSTERURI == null)
+        {
+            return;
+        }
         textCSFileUri.setTextSize(10f);
         textCSFileUri.setText(CSPOSTERURI.getPath());
         img_cs_poster.setVisibility(View.VISIBLE);
@@ -189,5 +254,17 @@ public class ClubServiceActivity extends AppCompatActivity
             // Draw dark icons on a light background color
             decorView.setSystemUiVisibility(decorView.getSystemUiVisibility() | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
+    }
+
+
+    private String getFileExtension(Uri uri)
+    {
+        if(uri!=null)
+        {
+            ContentResolver contentResolver = getContentResolver();
+            MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+            return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+        }
+        return "error";
     }
 }

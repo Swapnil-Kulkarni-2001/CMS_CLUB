@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 import ru.embersoft.expandabletextview.ExpandableTextView;
@@ -18,12 +20,14 @@ import ru.embersoft.expandabletextview.ExpandableTextView.OnStateChangeListener;
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.Holder>
 {
     public ArrayList<EventPOJO> arrayList;
-    public OnEventClickListener listener;
+    public OnEventClickListener single_click_listener;
+    public OnEventLongClickListener longClickListener;
 
 
-    public EventAdapter(ArrayList<EventPOJO> arrayList, OnEventClickListener listener) {
+    public EventAdapter(ArrayList<EventPOJO> arrayList, OnEventClickListener single_click_listener, OnEventLongClickListener longClickListener) {
         this.arrayList = arrayList;
-        this.listener = listener;
+        this.single_click_listener = single_click_listener;
+        this.longClickListener = longClickListener;
     }
 
     @NonNull
@@ -37,8 +41,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.Holder>
     @Override
     public void onBindViewHolder(@NonNull Holder holder, @SuppressLint("RecyclerView") int position) {
         holder.textEventName.setText(arrayList.get(position).getEvent_name());
-        holder.textDate.setText(arrayList.get(position).getDate());
-        holder.expandableDescription.setText(arrayList.get(position).getDescription());
+        holder.textDate.setText(arrayList.get(position).getEvent_date());
+        holder.expandableDescription.setText(arrayList.get(position).getEvent_description());
         holder.expandableDescription.setOnStateChangeListener(new OnStateChangeListener() {
             @Override
             public void onStateChange(boolean isShrink) {
@@ -47,18 +51,19 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.Holder>
                 arrayList.set(position,item);
             }
         });
-        holder.expandableDescription.setText(arrayList.get(position).getDescription());
+        holder.expandableDescription.setText(arrayList.get(position).getEvent_description());
         holder.expandableDescription.resetState(arrayList.get(position).isShrink);
-        if(arrayList.get(position).getPoster() == null)
+        if (arrayList.get(position).getEvent_poster() == null)
         {
             holder.poster.setVisibility(View.GONE);
         }
         else
         {
-            holder.poster.setImageURI(arrayList.get(position).getPoster());
+            Glide.with(holder.poster.getContext()).load(arrayList.get(position).getEvent_poster()).into(holder.poster);
         }
 
-        holder.bind(arrayList.get(position),listener);
+        holder.bind(arrayList.get(position),single_click_listener,longClickListener);
+
     }
 
     @Override
@@ -81,10 +86,18 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.Holder>
             expandableDescription = itemView.findViewById(R.id.expandable_description);
         }
 
-        public void bind(final EventPOJO item, final OnEventClickListener listener) {
+        public void bind(final EventPOJO item, final OnEventClickListener listener, final OnEventLongClickListener longClickListener) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     listener.onItemClicked(item);
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    longClickListener.onLongClicked(item);
+                    return true;
                 }
             });
         }

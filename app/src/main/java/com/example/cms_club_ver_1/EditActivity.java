@@ -1,6 +1,8 @@
 package com.example.cms_club_ver_1;
 
 import android.annotation.SuppressLint;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -8,6 +10,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.MimeTypeMap;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,12 +20,18 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import com.bumptech.glide.Glide;
 import com.github.dhaval2404.imagepicker.ImagePicker;
-
-import java.util.Objects;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class EditActivity extends AppCompatActivity
 {
+    @SuppressLint("StaticFieldLeak")
+    public static Context EditActivityContext;
+
     @SuppressLint("StaticFieldLeak")
     public static TextView txt_name;
     @SuppressLint("StaticFieldLeak")
@@ -39,7 +49,7 @@ public class EditActivity extends AppCompatActivity
 
     public AppCompatButton button1;
     public AppCompatButton button2;
-    public AppCompatButton button3;
+    public ImageButton button3;
     public AppCompatButton button4;
 
     public AppCompatButton phoneNo;
@@ -49,16 +59,24 @@ public class EditActivity extends AppCompatActivity
 
     public AppCompatButton back;
 
-    public AppCompatButton SAVE;
     public ImageView imageView;
     public int check;
+    public int delete_check;
 
+    public ClubMemberPOJO current_member_data;
 
+    public DatabaseReference databaseReference;
+    public StorageReference storageReference;
+
+    public Uri uri;
+    public static String club_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_activity_for_all_members);
+
+        EditActivityContext = getApplicationContext();
 
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();
@@ -67,6 +85,9 @@ public class EditActivity extends AppCompatActivity
             window.setStatusBarColor(getResources().getColor(R.color.orange));
             changeStatusBarContrastStyle(window,true);
         }
+
+
+
 
         txt_name = findViewById(R.id.txt_edit_name);
         txt_post = findViewById(R.id.txt_post_name);
@@ -86,7 +107,6 @@ public class EditActivity extends AppCompatActivity
         Github = findViewById(R.id.btn_edit_Github);
         Instagram = findViewById(R.id.btn_edit_Instagram);
 
-        SAVE = findViewById(R.id.btn_save_all);
 
         back = findViewById(R.id.btn_edit_member_back);
 
@@ -95,16 +115,28 @@ public class EditActivity extends AppCompatActivity
 
         Intent intent = getIntent();
         check = intent.getIntExtra("CALLED_FROM",0);
+        club_id = intent.getStringExtra("club_id");
+        current_member_data = (ClubMemberPOJO) intent.getSerializableExtra("current_member_data");
+
+        storageReference = FirebaseStorage.getInstance().getReference().child(club_id).child("members");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("SKCLUB").child(club_id).child("members");
+
+        txt_name.setText(current_member_data.getName());
+        txt_post.setText(current_member_data.getPost());
+        txt_phone_no.setText(current_member_data.getPhone_no());
+        txt_LinkedIn_URL.setText(current_member_data.getLinkedin_account());
+        txt_Github_URL.setText(current_member_data.getGithub_account());
+        txt_Instagram_URL.setText(current_member_data.getInstagram_account());
+        Glide.with(getApplicationContext()).load(current_member_data.getProfile_image()).into(imageView);
+
 
 
         button1.setOnClickListener(view -> {
-            Toast.makeText(getApplicationContext(),"Clicked",Toast.LENGTH_SHORT).show();
             BottomSheetDialog bottomSheet = new BottomSheetDialog(check);
             bottomSheet.show(getSupportFragmentManager(), "ModalBottomSheet");
         });
 
         button2.setOnClickListener(view -> {
-            Toast.makeText(getApplicationContext(),"Clicked",Toast.LENGTH_SHORT).show();
             BottomSheetDailogForPost  bottomSheetDailogForPost = new BottomSheetDailogForPost(check);
 
             bottomSheetDailogForPost.show(getSupportFragmentManager(),"ModalBottomSheet");
@@ -120,85 +152,73 @@ public class EditActivity extends AppCompatActivity
             switch (check)
             {
                 case 1 :
-                    Toast.makeText(getApplicationContext(),"Delete member from mentor board",Toast.LENGTH_SHORT).show();
-                    //Delete member from mentor board
+                    deleteMemberFromFirebase("mentor");
                     break;
                 case 2 :
-                    Toast.makeText(getApplicationContext(),"Delete member from main board",Toast.LENGTH_SHORT).show();
-                    //Delete member from main board
+                    deleteMemberFromFirebase("main");
                     break;
                 case 3 :
-                    Toast.makeText(getApplicationContext(),"Delete member from Assistant board",Toast.LENGTH_SHORT).show();
-                    //Delete member from Assistant board
+                    deleteMemberFromFirebase("assistant");
                     break;
             }
         });
 
 
         phoneNo.setOnClickListener(view -> {
-            BottonSheetDailogPhoneNo bottonSheetDailogPhoneNo = new BottonSheetDailogPhoneNo();
+            BottonSheetDailogPhoneNo bottonSheetDailogPhoneNo = new BottonSheetDailogPhoneNo(check);
             bottonSheetDailogPhoneNo.show(getSupportFragmentManager(),"ModalBottomSheet");
         });
 
         linkedIn.setOnClickListener(view -> {
-            BottomSheetDialogLinkedIn bottomSheetDialogLinkedIn = new BottomSheetDialogLinkedIn();
+            BottomSheetDialogLinkedIn bottomSheetDialogLinkedIn = new BottomSheetDialogLinkedIn(check);
             bottomSheetDialogLinkedIn.show(getSupportFragmentManager(),"ModalBottomSheet");
         });
 
 
         Github.setOnClickListener(view -> {
-            BottomSheetDialogGithub bottomSheetDialogGithub = new BottomSheetDialogGithub();
+            BottomSheetDialogGithub bottomSheetDialogGithub = new BottomSheetDialogGithub(check);
             bottomSheetDialogGithub.show(getSupportFragmentManager(),"ModalBottomSheet");
         });
 
         Instagram.setOnClickListener(view -> {
-            BottomSheetDialogInstagram bottomSheetDialogInstagram = new BottomSheetDialogInstagram();
+            BottomSheetDialogInstagram bottomSheetDialogInstagram = new BottomSheetDialogInstagram(check);
             bottomSheetDialogInstagram.show(getSupportFragmentManager(),"ModalBottomSheet");
         });
 
 
-        SAVE.setOnClickListener(view -> {
-            String final_name = BottomSheetDialog.member_name;
-            String final_post = BottomSheetDailogForPost.member_post;
-            String final_phone = BottonSheetDailogPhoneNo.member_phone_no;
-            String final_linkedIn_URL = BottomSheetDialogLinkedIn.member_LinkedIn;
-            String final_github_URL = BottomSheetDialogGithub.member_Github;
-            String final_instagram_URL = BottomSheetDialogInstagram.member_Instagram;
-            Toast.makeText(getApplicationContext(),final_name+" "+final_post+" "+final_phone+" "+final_linkedIn_URL+
-                    " "+final_github_URL+" "+final_instagram_URL,Toast.LENGTH_SHORT).show();
-        });
-
-
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        back.setOnClickListener(view -> finish());
 
     }
+
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        Uri uri = Objects.requireNonNull(data).getData();
+        if (data != null) {
+            uri = data.getData();
+        }
+        if (uri==null)
+        {
+            return;
+        }
         imageView.setImageURI(uri);
+
+
         switch (check)
         {
             case 1 :
-                Toast.makeText(getApplicationContext(),"save img to firebase for mentor board",Toast.LENGTH_SHORT).show();
-                //save img to firebase for mentor board
+                putImageToFirebase("mentor");
                 break;
             case 2 :
-                Toast.makeText(getApplicationContext(),"save img to firebase for main board",Toast.LENGTH_SHORT).show();
-                //save img to firebase for main board
+                putImageToFirebase("main");
                 break;
             case 3 :
-                Toast.makeText(getApplicationContext(),"save img to firebase for Assistant board",Toast.LENGTH_SHORT).show();
-                //save img to firebase for Assistant board
+                putImageToFirebase("assistant");
                 break;
         }
+
     }
 
 
@@ -210,6 +230,42 @@ public class EditActivity extends AppCompatActivity
         } else {
             // Draw dark icons on a light background color
             decorView.setSystemUiVisibility(decorView.getSystemUiVisibility() | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
+    }
+
+    private String getFileExtension(Uri uri)
+    {
+        if(uri!=null)
+        {
+            ContentResolver contentResolver = getContentResolver();
+            MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+            return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+        }
+        return "error";
+    }
+
+
+    void putImageToFirebase(String member_type)
+    {
+        storageReference = storageReference.child(member_type).child(System.currentTimeMillis()+"."+getFileExtension(uri));
+        storageReference.putFile(uri).addOnSuccessListener(taskSnapshot -> storageReference.getDownloadUrl().addOnSuccessListener(uri2 -> {
+            storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(current_member_data.getProfile_image());
+            storageReference.delete().addOnSuccessListener(unused -> databaseReference.child(member_type).child(current_member_data.getCms_id()).child("profile_image").setValue(String.valueOf(uri2)).addOnSuccessListener(unused1 -> Toast.makeText(getApplicationContext(),"Profile image updated successfully",Toast.LENGTH_SHORT).show()));
+
+        })).addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Something went wrong!!", Toast.LENGTH_SHORT).show());
+    }
+
+    void deleteMemberFromFirebase(String member_type)
+    {
+        storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(current_member_data.getProfile_image());
+        storageReference.delete().addOnSuccessListener(unused -> databaseReference.child(member_type).child(current_member_data.getCms_id()).removeValue().addOnSuccessListener(unused1 -> {
+            Toast.makeText(getApplicationContext(), "Member deleted successfully !", Toast.LENGTH_SHORT).show();
+            finish();
+        }).addOnFailureListener(e -> delete_check = 1)).addOnFailureListener(e -> delete_check = 1);
+
+        if (delete_check == 1)
+        {
+            Toast.makeText(getApplicationContext(), "Something went wrong !", Toast.LENGTH_SHORT).show();
         }
     }
 

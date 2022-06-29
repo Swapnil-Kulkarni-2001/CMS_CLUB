@@ -18,8 +18,8 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/ic_arrow_back"
             android:backgroundTint="@color/white"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
@@ -44,15 +44,17 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="5dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:backgroundTint="@color/white"
                 android:elevation="100dp"
                 android:padding="10dp"
@@ -137,11 +139,13 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="5dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:backgroundTint="@color/white"
                 android:elevation="100dp"
                 android:padding="10dp"
@@ -195,11 +199,13 @@
 
 
             <androidx.cardview.widget.CardView
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="5dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:backgroundTint="@color/white"
                 android:elevation="100dp"
                 android:padding="10dp"
@@ -241,11 +247,13 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="5dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:backgroundTint="@color/white"
                 android:elevation="100dp"
                 android:padding="10dp"
@@ -293,8 +301,9 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="30dp"
-                android:layout_marginBottom="20dp"
-                android:visibility="gone" />
+                android:layout_marginBottom="50dp"
+                android:visibility="gone"
+                tools:ignore="ContentDescription" />
         </LinearLayout>
     </ScrollView>
 
@@ -302,6 +311,7 @@
         android:id="@+id/btn_event_all_save"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginTop="20dp"
         android:layout_alignParentBottom="true"
         android:background="@color/orange"
         android:text="Organize"

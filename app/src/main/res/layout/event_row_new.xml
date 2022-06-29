@@ -7,11 +7,10 @@
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="380dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="5dp"
+        android:layout_margin="20dp"
         android:layout_gravity="center"
         android:backgroundTint="@color/white"
         android:elevation="80dp"
@@ -66,13 +65,13 @@
             <ImageView
                 android:id="@+id/poster"
                 android:layout_width="wrap_content"
-                android:layout_height="300dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginBottom="20dp"
-                android:scaleType="fitXY"
+                android:adjustViewBounds="true"
                 tools:ignore="ContentDescription" />
 
             <RelativeLayout
@@ -85,16 +84,16 @@
                     android:id="@+id/expandable_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:layout_centerVertical="true"
                     app:etv_animationTime="20"
                     app:etv_expandLines="0"
                     app:etv_showLine="false"
                     app:etv_textContentColor="@color/black"
                     app:etv_textContentSize="16sp"
                     app:etv_textExpand="See description"
-                    app:etv_textShrink="Hide description" />
+                    app:etv_textShrink="Hide description"/>
 
             </RelativeLayout>
 

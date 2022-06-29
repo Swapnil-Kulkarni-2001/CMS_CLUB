@@ -16,12 +16,10 @@ import java.util.ArrayList;
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.Holder> {
 
     ArrayList<ImagePOJO> arrayList;
-    Context context;
     OnImageClickListener listener;
 
-    public ImageAdapter(ArrayList<ImagePOJO> arrayList, Context context, OnImageClickListener listener) {
+    public ImageAdapter(ArrayList<ImagePOJO> arrayList, OnImageClickListener listener) {
         this.arrayList = arrayList;
-        this.context = context;
         this.listener = listener;
     }
 
@@ -35,7 +33,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.Holder> {
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
-        Glide.with(context).load(arrayList.get(position).getImgURL()).into(holder.img);
+        Glide.with(holder.img.getContext()).load(arrayList.get(position).getImgURL()).into(holder.img);
         holder.bind(arrayList.get(position), listener);
     }
 

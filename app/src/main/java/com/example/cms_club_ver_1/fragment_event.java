@@ -1,5 +1,6 @@
 package com.example.cms_club_ver_1;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,18 +11,37 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.util.ArrayList;
+import java.util.Map;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class fragment_event extends Fragment {
 
     public AppCompatButton btn_organize_event;
     public RecyclerView rv;
     public ArrayList<EventPOJO> arrayList;
+    public static String club_id;
+    public EventAdapter adapter;
+    public DatabaseReference databaseReference;
+    public StorageReference storageReference;
+    public int error_check;
+
+    @SuppressLint("ObsoleteSdkInt")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -35,40 +55,99 @@ public class fragment_event extends Fragment {
             changeStatusBarContrastStyle(window,false);
         }
 
+        Intent intent = getActivity().getIntent();
+        club_id = intent.getStringExtra("club_id");
+
         btn_organize_event = view.findViewById(R.id.btn_organize);
         rv = view.findViewById(R.id.rv_event);
         arrayList = new ArrayList<>();
-
-        arrayList.add(new EventPOJO("Event1","12/12/1200","Generating random paragraphs can be an excellent way for writers to get their creative flow going at the beginning of the day. The writer has no idea what topic the random paragraph will be about when it appears. This forces the writer to use creativity to complete one of three common writing challenges. The writer can use the paragraph as the first one of a short story and build upon it. A second option is to use the random paragraph somewhere in a short story they create. The third option is to have the random paragraph be the ending paragraph in a short story. No matter which of these challenges is undertaken, the writer is forced to use creativity to incorporate the paragraph into their writing.",EventActivity.EVENTPOSTERURI));
-        arrayList.add(new EventPOJO("Event2","03/02/1200","Generating random paragraphs can be an excellent way for writers to get their creative flow going at the beginning of the day. The writer has no idea what topic the random paragraph will be about when it appears. This forces the writer to use creativity to complete one of three common writing challenges. The writer can use the paragraph as the first one of a short story and build upon it. A second option is to use the random paragraph somewhere in a short story they create. The third option is to have the random paragraph be the ending paragraph in a short story. No matter which of these challenges is undertaken, the writer is forced to use creativity to incorporate the paragraph into their writing.",EventActivity.EVENTPOSTERURI));
-        arrayList.add(new EventPOJO("Event3","02/11/1200","Sunday",EventActivity.EVENTPOSTERURI));
-        arrayList.add(new EventPOJO("Event4","04/09/1200","Sunday",EventActivity.EVENTPOSTERURI));
-        arrayList.add(new EventPOJO("Event5","05/10/1200","Sunday",EventActivity.EVENTPOSTERURI));
-
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        rv.setAdapter(new EventAdapter(arrayList, new OnEventClickListener() {
+
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("SKCLUB").child(club_id).child("events");
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
-            public void onItemClicked(EventPOJO eventPOJO) {
-                Toast.makeText(getContext(),eventPOJO.getEvent_name(),Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getContext(),ImageGalleryActivity.class);
-                intent.putExtra("event_name",eventPOJO.getEvent_name());
-                startActivity(intent);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                arrayList.clear();
+                for(DataSnapshot dataSnapshot:snapshot.getChildren())
+                {
+                    //EventPOJO eventPOJO = snapshot.getValue(EventPOJO.class);
+                    arrayList.add(dataSnapshot.getValue(EventPOJO.class));
+                }
+                adapter.notifyDataSetChanged();
             }
-        }));
-
-
-        btn_organize_event.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onCancelled(@NonNull DatabaseError error) {
 
-                Intent intent = new Intent(getActivity(),EventActivity.class);
-                startActivity(intent);
             }
+        });
+
+        adapter = new EventAdapter(arrayList, eventPOJO -> {
+            Toast.makeText(getContext(), eventPOJO.getEvent_name(), Toast.LENGTH_SHORT).show();
+            Intent intent1 = new Intent(getContext(), ImageGalleryActivity.class);
+            intent1.putExtra("event_data",eventPOJO);
+            startActivity(intent1);
+        }, eventPOJO -> {
+            SweetAlertDialog dialog = new SweetAlertDialog(getActivity(),SweetAlertDialog.WARNING_TYPE);
+            dialog.setTitleText("Confirmation");
+            dialog.setContentText("Are you sure want to delete this event");
+            dialog.setConfirmClickListener(sweetAlertDialog -> {
+               databaseReference.child(eventPOJO.getCms_id()).child("gallery").get().addOnCompleteListener(task -> {
+                   if (task.isSuccessful())
+                   {
+                       if (task.getResult().getValue() != null)
+                       {
+                           Map<String, Object> map = (Map<String, Object>) task.getResult().getValue();
+                           for (Map.Entry<String,Object> entry : map.entrySet())
+                           {
+                               storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(String.valueOf(entry.getValue()));
+                               storageReference.delete().addOnSuccessListener(unused -> databaseReference.child(eventPOJO.getCms_id()).child("gallery").child(entry.getKey()).removeValue().addOnSuccessListener(unused1 -> error_check = 0).addOnFailureListener(e -> error_check = 1));
+                           }
+                       }
+                   }
+               });
+
+                databaseReference.child(eventPOJO.getCms_id()).child("event_poster").get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful())
+                    {
+                        if (task.getResult()!=null)
+                        {
+                            String s =  String.valueOf(task.getResult().getValue());
+                            storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(s);
+                            storageReference.delete().addOnSuccessListener(unused -> error_check = 0).addOnFailureListener(e -> error_check = 1);
+                        }
+                    }
+                });
+
+                databaseReference.child(eventPOJO.getCms_id()).removeValue().addOnSuccessListener(unused -> {
+                    error_check = 0;
+                    Toast.makeText(MainActivity.MainActivity_context, "Event deleted successfully ! ", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                }).addOnFailureListener(e -> error_check = 1);
+
+                if(error_check != 0)
+                {
+                    Toast.makeText(MainActivity.MainActivity_context,"Failed to delete event ! ", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                }
+
+            });
+
+            dialog.show();
+        });
+
+        rv.setAdapter(adapter);
+
+        btn_organize_event.setOnClickListener(view1 -> {
+            Intent intent12 = new Intent(getActivity(),EventActivity.class);
+            startActivity(intent12);
         });
 
         return view;
     }
 
+    @SuppressLint("InlinedApi")
     public static void changeStatusBarContrastStyle(Window window, Boolean lightIcons) {
         View decorView = window.getDecorView();
         if (lightIcons) {

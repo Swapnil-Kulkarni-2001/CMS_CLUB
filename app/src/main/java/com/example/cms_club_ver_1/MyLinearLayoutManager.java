@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MyLinearLayoutManager extends LinearLayoutManager
 {
     public MyLinearLayoutManager(Context context) {
-        super(context);
+        super(context, LinearLayoutManager.VERTICAL,false);
     }
 
     @Override

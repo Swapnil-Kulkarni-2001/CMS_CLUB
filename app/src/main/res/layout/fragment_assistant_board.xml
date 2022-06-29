@@ -6,17 +6,23 @@
     android:orientation="vertical"
     tools:context=".fragment_assistant_board">
 
-    <RelativeLayout
+    <LinearLayout
+        android:weightSum="100"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="10dp">
 
         <EditText
+            android:layout_weight="90"
             android:id="@+id/ed_search"
-            android:layout_width="320dp"
+            android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:layout_margin="20dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:autofillHints=""
             android:background="@drawable/custom_input"
             android:drawableStart="@drawable/custom_search_icon"
             android:drawablePadding="12dp"
@@ -25,20 +31,18 @@
             android:inputType="textPersonName"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
-            android:textSize="20sp"
-            android:autofillHints=""  />
+            android:textSize="20sp" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:layout_weight="5"
             android:id="@+id/btn_assistant_add"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="10dp"
+            android:layout_gravity="center"
             android:background="@drawable/ic_add"
             tools:ignore="SpeakableTextPresentCheck" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"

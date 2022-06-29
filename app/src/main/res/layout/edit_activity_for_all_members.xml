@@ -43,14 +43,7 @@
                 android:layout_centerInParent="true"
                 android:layout_alignParentEnd="true">
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_save_all"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginEnd="20dp"
-                    android:background="@drawable/ic_circle_save"
-                    android:backgroundTint="@color/white"
-                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_member_delete"
@@ -91,17 +84,15 @@
                     android:src="@drawable/img_example"
                     app:civ_border_width="1dp" />
 
-                <androidx.appcompat.widget.AppCompatButton
+                <ImageButton
                     android:id="@+id/btn_edit_profile_img"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_alignEnd="@+id/profile_pic"
                     android:layout_alignBottom="@+id/profile_pic"
                     android:background="@drawable/round_button"
-                    android:drawableEnd="@drawable/ic_edit"
-                    android:drawableTint="@color/white"
-                    android:paddingEnd="9dp"
-                    tools:ignore="RtlSymmetry,SpeakableTextPresentCheck,UnusedAttribute" />
+                    android:src="@drawable/ic_camera"
+                    tools:ignore="SpeakableTextPresentCheck" />
             </RelativeLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -322,12 +313,13 @@
 
                 <TextView
                     android:id="@+id/txt_LinkedIn_account"
-                    android:layout_width="wrap_content"
+                    android:layout_width="250dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="28dp"
                     android:text="LinkedIn account URL"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textSize="12sp"
+                    android:textAlignment="textStart"
                     app:layout_constraintStart_toEndOf="@+id/view12"
                     app:layout_constraintTop_toBottomOf="@+id/textView9"
                     tools:ignore="HardcodedText" />
@@ -385,12 +377,13 @@
 
                 <TextView
                     android:id="@+id/txt_Github_account"
-                    android:layout_width="wrap_content"
+                    android:layout_width="250dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="28dp"
                     android:text="Github account URL"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textSize="12sp"
+                    android:textAlignment="textStart"
                     app:layout_constraintStart_toEndOf="@+id/view15"
                     app:layout_constraintTop_toBottomOf="@+id/textView11"
                     tools:ignore="HardcodedText" />
@@ -450,12 +443,13 @@
 
                 <TextView
                     android:id="@+id/txt_Instagram_account"
-                    android:layout_width="wrap_content"
+                    android:layout_width="250dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="28dp"
                     android:text="Instagram account URL"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textSize="12sp"
+                    android:textAlignment="textStart"
                     app:layout_constraintStart_toEndOf="@+id/view10"
                     app:layout_constraintTop_toBottomOf="@+id/textView14"
                     tools:ignore="HardcodedText" />

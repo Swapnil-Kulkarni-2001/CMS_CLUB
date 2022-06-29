@@ -3,6 +3,38 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/drawable/ic_add.xml" value="0.1815" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/drawable/ic_baseline_file_download_24.xml" value="0.1815" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/drawable/ic_description2.xml" value="0.2075" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/drawable/ic_more.xml" value="0.122" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/drawable/orange_gradiant_color.xml" value="0.1815" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/layout/activity_change_description.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/layout/activity_change_logo.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/layout/activity_change_name.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/layout/activity_change_password.xml" value="0.1875" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/layout/activity_change_tag.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/layout/activity_club_login.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/layout/activity_club_service_organize.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/layout/activity_event_organize.xml" value="0.20512820512820512" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/layout/activity_forget_password.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/layout/activity_login.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/layout/activity_student_login.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/layout/club_service_row.xml" value="0.1875" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/layout/cs_file.xml" value="0.1875" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/layout/cs_row.xml" value="0.1875" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/layout/custom_dialog_box.xml" value="0.1875" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/layout/edit_activity_for_all_members.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/layout/event_row_new.xml" value="0.264" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/layout/fragment_assistant_board.xml" value="0.264" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/layout/fragment_event.xml" value="0.1875" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/layout/fragment_fragments_members.xml" value="0.25" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/layout/fragment_home.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/layout/fragment_main_board.xml" value="0.264" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/layout/fragment_mentor_board.xml" value="0.264" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/layout/fragment_more.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/layout/fragment_service.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/layout/image_gallery.xml" value="0.1875" />
+        <entry key="..\:/AndroidStudioProjects/AndroidStudioProjects/CMS_CLUB_VER_1/app/src/main/res/layout/multiline_edittext_dialog_box.xml" value="0.1875" />
         <entry key="LoginModule/src/main/res/drawable/login_gradiant.xml" value="0.18" />
         <entry key="LoginModule/src/main/res/layout/activity_main.xml" value="0.35625" />
         <entry key="LoginModule/src/main/res/layout/activity_student_login.xml" value="0.35625" />
@@ -19,6 +51,7 @@
         <entry key="app/src/main/res/drawable/custom_link_icon.xml" value="0.158" />
         <entry key="app/src/main/res/drawable/custom_post_icon.xml" value="0.158" />
         <entry key="app/src/main/res/drawable/custom_search_icon.xml" value="0.158" />
+        <entry key="app/src/main/res/drawable/custom_textview_textcolor.xml" value="0.1945" />
         <entry key="app/src/main/res/drawable/custom_user_icon.xml" value="0.158" />
         <entry key="app/src/main/res/drawable/custom_whatsapp_icon.xml" value="0.158" />
         <entry key="app/src/main/res/drawable/edit_box.xml" value="0.1915" />
@@ -30,6 +63,7 @@
         <entry key="app/src/main/res/drawable/ic_edit.xml" value="0.183" />
         <entry key="app/src/main/res/drawable/ic_event_edit_save.xml" value="0.1915" />
         <entry key="app/src/main/res/drawable/ic_events.xml" value="0.2105" />
+        <entry key="app/src/main/res/drawable/ic_id.xml" value="0.1945" />
         <entry key="app/src/main/res/drawable/ic_ins.xml" value="0.158" />
         <entry key="app/src/main/res/drawable/ic_link_focused.xml" value="0.158" />
         <entry key="app/src/main/res/drawable/ic_link_unfocused.xml" value="0.158" />
@@ -41,6 +75,7 @@
         <entry key="app/src/main/res/drawable/ic_username.xml" value="0.18" />
         <entry key="app/src/main/res/drawable/ic_whatsapp.xml" value="0.158" />
         <entry key="app/src/main/res/drawable/ic_whatsapp_focused.xml" value="0.158" />
+        <entry key="app/src/main/res/drawable/login_gradiant.xml" value="0.1945" />
         <entry key="app/src/main/res/drawable/orange_gradiant_color.xml" value="0.18" />
         <entry key="app/src/main/res/drawable/round_button.xml" value="0.183" />
         <entry key="app/src/main/res/layout-v23/activity_event_details.xml" value="0.18072916666666666" />
@@ -60,6 +95,7 @@
         <entry key="app/src/main/res/layout/bottom_sheet_dialog_linkedin.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/bottom_sheet_dialog_phoneno.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/club_service_row.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/layout/custom_dialog_box.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/edit_activity_for_all_members.xml" value="0.3472222222222222" />
         <entry key="app/src/main/res/layout/edit_name_row.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/event_row.xml" value="0.35520833333333335" />

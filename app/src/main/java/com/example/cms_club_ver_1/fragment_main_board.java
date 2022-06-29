@@ -1,5 +1,6 @@
 package com.example.cms_club_ver_1;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,20 +11,33 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.ListIterator;
 
 public class fragment_main_board extends Fragment {
 
     public AppCompatButton button;
     public EditText ed_search;
     public RecyclerView recyclerView;
-    public ArrayList<MainBoardPOJO> arrayList;
+    public ArrayList<ClubMemberPOJO> arrayList;
+    public ListIterator<ClubMemberPOJO> iter;
+
     public MainBoardAdapter adapter;
+    public DatabaseReference databaseReference;
+    public String club_id;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,30 +47,47 @@ public class fragment_main_board extends Fragment {
         ed_search = view.findViewById(R.id.ed_search);
         recyclerView = view.findViewById(R.id.rv);
         button = view.findViewById(R.id.btn_main_board_add);
+
         arrayList = new ArrayList<>();
-
-        //Add main member board information from firebase to arrayList
-
-        arrayList.add(new MainBoardPOJO(R.drawable.ic_launcher_background,"Swapnil Kulkarni","Web Developer","9403342835","https://www.instagram.com/swapnil_kulkarni_2001/","https://github.com/Swapnil-Kulkarni-2001","https://www.instagram.com/swapnil_kulkarni_2001/"));
-        arrayList.add(new MainBoardPOJO(R.drawable.ic_launcher_background,"Harshal Gawande","Treasurer","9403342835","https://www.instagram.com/swapnil_kulkarni_2001/","https://github.com/Swapnil-Kulkarni-2001","https://www.instagram.com/swapnil_kulkarni_2001/"));
-        arrayList.add(new MainBoardPOJO(R.drawable.ic_launcher_background,"Swapnil Kulkarni","Web Developer","9403342835","https://www.instagram.com/swapnil_kulkarni_2001/","https://github.com/Swapnil-Kulkarni-2001","https://www.instagram.com/swapnil_kulkarni_2001/"));
-        arrayList.add(new MainBoardPOJO(R.drawable.ic_launcher_background,"Swapnil Kulkarni","Web Developer","9403342835","https://www.instagram.com/swapnil_kulkarni_2001/","https://github.com/Swapnil-Kulkarni-2001","https://www.instagram.com/swapnil_kulkarni_2001/"));
-        arrayList.add(new MainBoardPOJO(R.drawable.ic_launcher_background,"Swapnil Kulkarni","Web Developer","9403342835","https://www.instagram.com/swapnil_kulkarni_2001/","https://github.com/Swapnil-Kulkarni-2001","https://www.instagram.com/swapnil_kulkarni_2001/"));
-        arrayList.add(new MainBoardPOJO(R.drawable.ic_launcher_background,"Swapnil Kulkarni","Web Developer","9403342835","https://www.instagram.com/swapnil_kulkarni_2001/","https://github.com/Swapnil-Kulkarni-2001","https://www.instagram.com/swapnil_kulkarni_2001/"));
-        arrayList.add(new MainBoardPOJO(R.drawable.ic_launcher_background,"Swapnil Kulkarni","Web Developer","9403342835","https://www.instagram.com/swapnil_kulkarni_2001/","https://github.com/Swapnil-Kulkarni-2001","https://www.instagram.com/swapnil_kulkarni_2001/"));
-
+        iter = arrayList.listIterator();
+        Intent intent1 = getActivity().getIntent();
+        club_id = intent1.getStringExtra("club_id");
+        Toast.makeText(getContext(),club_id,Toast.LENGTH_SHORT).show();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("SKCLUB").child(club_id).child("members").child("main").addValueEventListener(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                arrayList.clear();
+                for(DataSnapshot dataSnapshot:snapshot.getChildren())
+                {
+                    ClubMemberPOJO clubMemberPOJO =dataSnapshot.getValue(ClubMemberPOJO.class);
+                    arrayList.add(clubMemberPOJO);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(),"Something went wrong!!!",Toast.LENGTH_SHORT).show();
+            }
+        });
 
         adapter = new MainBoardAdapter(arrayList, new OnMainBoardRowClickListener() {
             @Override
-            public void onItemClick(MainBoardPOJO mainBoardPOJO) {
-                Toast.makeText(getContext(),mainBoardPOJO.getName(),Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getContext(),EditActivity.class);
-                intent.putExtra("CALLED_FROM",2);
-                startActivity(intent);
+            public void onItemClick(ClubMemberPOJO clubMemberPOJO) {
+                Toast.makeText(getContext(),clubMemberPOJO.getCms_id(),Toast.LENGTH_SHORT).show();
+                Intent intent2 = new Intent(getContext(),EditActivity.class);
+                intent2.putExtra("CALLED_FROM",2);
+                intent2.putExtra("current_member_data",clubMemberPOJO);
+                intent2.putExtra("club_id",club_id);
+                startActivity(intent2);
             }
         });
-        recyclerView.setAdapter(adapter);
+
+                recyclerView.setAdapter(adapter);
 
         ed_search.addTextChangedListener(new TextWatcher() {
             @Override
@@ -66,9 +97,7 @@ public class fragment_main_board extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
                 filter(charSequence.toString());
-
             }
 
             @Override
@@ -77,30 +106,27 @@ public class fragment_main_board extends Fragment {
             }
         });
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),MainBoardAddPage.class);
-                intent.putExtra("CALLED_FROM",2);
-                startActivity(intent);
-            }
+        button.setOnClickListener(view1 -> {
+            Intent intent = new Intent(getActivity(),MainBoardAddPage.class);
+            intent.putExtra("CALLED_FROM",2);
+            intent.putExtra("club_id",club_id);
+            startActivity(intent);
         });
 
         return view;
     }
 
     private void filter(String text) {
-        ArrayList<MainBoardPOJO> filteredlist = new ArrayList<>();
-        for (MainBoardPOJO item : arrayList) {
+        ArrayList<ClubMemberPOJO> filteredlist = new ArrayList<>();
+        for (ClubMemberPOJO item : arrayList) {
             if (item.getName().toLowerCase().contains(text.toLowerCase())) {
                 filteredlist.add(item);
             }
         }
-        if (filteredlist.isEmpty()) {
-            Toast.makeText(getContext(), "No Data Found..", Toast.LENGTH_SHORT).show();
-        } else {
-
+        if (!filteredlist.isEmpty()) {
             adapter.filterList(filteredlist);
         }
     }
+
+
 }

@@ -1,13 +1,16 @@
 package com.example.cms_club_ver_1;
 
 import android.annotation.SuppressLint;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,6 +23,10 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.Objects;
 
@@ -54,6 +61,11 @@ public class EventActivity extends AppCompatActivity {
     public String EVENTDESCRIPTION;
     public static Uri EVENTPOSTERURI;
 
+    public int error_check;
+
+    public DatabaseReference databaseReference;
+    public StorageReference storageReference;
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +97,10 @@ public class EventActivity extends AppCompatActivity {
         textEventDescription = findViewById(R.id.txt_event_description);
 
         img_event_poster = findViewById(R.id.img_event_poster);
+
+
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("SKCLUB").child(fragment_event.club_id).child("events");
+        storageReference = FirebaseStorage.getInstance().getReference().child(fragment_event.club_id).child("events");
 
         btn_event_edit.setOnClickListener(view -> {
             textEventName.setVisibility(View.GONE);
@@ -158,7 +174,48 @@ public class EventActivity extends AppCompatActivity {
 //                use variable EVENTPOSTERURI;
 //                use variable EVENTDESCRIPTION;
             //store above data in firebase
+            int field_check = 0;
+            if(TextUtils.isEmpty(EVENTNAME))
+            {
+                field_check = 1;
+            }
+            if(TextUtils.isEmpty(EVENTDATE))
+            {
+                field_check = 1;
+            }
+            if(TextUtils.isEmpty(EVENTDESCRIPTION))
+            {
+                field_check = 1;
+            }
+            if(TextUtils.isEmpty(String.valueOf(EVENTPOSTERURI)))
+            {
+                field_check = 1;
+            }
 
+            if(field_check == 1)
+            {
+                Toast.makeText(getApplicationContext(), "Failed to create event !", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            storageReference = storageReference.child(System.currentTimeMillis()+"."+getFileExtension(EVENTPOSTERURI));
+            storageReference.putFile(EVENTPOSTERURI).addOnSuccessListener(taskSnapshot -> storageReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                String key = databaseReference.push().getKey();
+                EventPOJO data = new EventPOJO();
+                data.setCms_id(key);
+                data.setEvent_name(EVENTNAME);
+                data.setEvent_date(EVENTDATE);
+                data.setEvent_description(EVENTDESCRIPTION);
+                data.setEvent_poster(String.valueOf(uri));
+                assert key != null;
+                databaseReference.child(key).setValue(data).addOnSuccessListener(unused -> error_check = 0);
+            }));
+
+            if (error_check == 0)
+            {
+                Toast.makeText(getApplicationContext(), "Event created successfully ! ", Toast.LENGTH_SHORT).show();
+                finish();
+            }
         });
 
 
@@ -192,6 +249,17 @@ public class EventActivity extends AppCompatActivity {
             // Draw dark icons on a light background color
             decorView.setSystemUiVisibility(decorView.getSystemUiVisibility() | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
+    }
+
+    private String getFileExtension(Uri uri)
+    {
+        if(uri!=null)
+        {
+            ContentResolver contentResolver = getContentResolver();
+            MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+            return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+        }
+        return "error";
     }
 
 }

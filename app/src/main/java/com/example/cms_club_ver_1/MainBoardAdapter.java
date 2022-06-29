@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.URLUtil;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,15 +14,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 public class MainBoardAdapter extends RecyclerView.Adapter<MainBoardAdapter.Holder>
 {
 
-    ArrayList<MainBoardPOJO> arrayList;
+    ArrayList<ClubMemberPOJO> arrayList;
     OnMainBoardRowClickListener listener;
 
-    public MainBoardAdapter(ArrayList<MainBoardPOJO> arrayList, OnMainBoardRowClickListener listener)
+    public MainBoardAdapter(ArrayList<ClubMemberPOJO> arrayList, OnMainBoardRowClickListener listener)
     {
         this.arrayList = arrayList;
         this.listener = listener;
@@ -37,17 +40,28 @@ public class MainBoardAdapter extends RecyclerView.Adapter<MainBoardAdapter.Hold
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, @SuppressLint("RecyclerView") int position) {
-        holder.profile.setImageResource(arrayList.get(position).getImg_profile());
         holder.textName.setText(arrayList.get(position).getName());
         holder.textPost.setText(arrayList.get(position).getPost());
         holder.textPhone_no.setText(arrayList.get(position).getPhone_no());
-        holder.btn_LinkedIn.setOnClickListener(view -> GoToURL(arrayList.get(position).getLinkedin_url()));
-
-        holder.btn_Github.setOnClickListener(view -> GoToURL(arrayList.get(position).getGithub_url()));
-
-        holder.btn_Instagram.setOnClickListener(view -> GoToURL(arrayList.get(position).getInstagram_url()));
-
-
+        holder.btn_LinkedIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GoToURL(arrayList.get(position).getLinkedin_account());
+            }
+        });
+        holder.btn_Github.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GoToURL(arrayList.get(position).getGithub_account());
+            }
+        });
+        holder.btn_Instagram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GoToURL(arrayList.get(position).getInstagram_account());
+            }
+        });
+        Glide.with(holder.profile.getContext()).load(arrayList.get(position).getProfile_image()).into(holder.profile);
         holder.bind(arrayList.get(position),listener);
     }
 
@@ -77,13 +91,13 @@ public class MainBoardAdapter extends RecyclerView.Adapter<MainBoardAdapter.Hold
             btn_Instagram = itemView.findViewById(R.id.btn_instagram);
         }
 
-        public void bind(final MainBoardPOJO item, final OnMainBoardRowClickListener listener) {
+        public void bind(final ClubMemberPOJO item, final OnMainBoardRowClickListener listener) {
             itemView.setOnClickListener(v -> listener.onItemClick(item));
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void filterList(ArrayList<MainBoardPOJO> filterllist) {
+    public void filterList(ArrayList<ClubMemberPOJO> filterllist) {
         // below line is to add our filtered
         // list in our course array list.
         arrayList = filterllist;
@@ -94,8 +108,18 @@ public class MainBoardAdapter extends RecyclerView.Adapter<MainBoardAdapter.Hold
 
     void GoToURL(String url){
         Uri uri = Uri.parse(url);
-        Intent intent= new Intent(Intent.ACTION_VIEW,uri);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        MainActivity.MainActivity_context.startActivity(intent);
+
+        try {
+            if (!URLUtil.isValidUrl(url)) {
+                return;
+            } else {
+                Intent intent= new Intent(Intent.ACTION_VIEW,uri);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                MainActivity.MainActivity_context.startActivity(intent);
+            }
+        } catch (Exception ignored){
+
+        }
+
     }
 }

@@ -48,10 +48,12 @@
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginBottom="5dp"
                 android:backgroundTint="@color/white"
                 android:elevation="100dp"
@@ -137,10 +139,12 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginBottom="5dp"
                 android:backgroundTint="@color/white"
                 android:elevation="100dp"
@@ -195,10 +199,12 @@
 
 
             <androidx.cardview.widget.CardView
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginBottom="5dp"
                 android:backgroundTint="@color/white"
                 android:elevation="100dp"
@@ -241,10 +247,12 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginBottom="5dp"
                 android:backgroundTint="@color/white"
                 android:elevation="100dp"
@@ -305,6 +313,7 @@
         android:id="@+id/btn_organize"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginTop="20dp"
         android:layout_alignParentBottom="true"
         android:background="@color/orange"
         android:text="Organize"
